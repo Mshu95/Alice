@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Sentence splitters define strings that mark the end of a sentence,
+    after input substitutions have been performed.-->
+<splitters>
+  <splitter value="..." type="sentence"/>
+  <splitter value="." type="sentence"/>
+  <splitter value="!" type="sentence"/>
+  <splitter value="?" type="sentence"/>
+  <splitter value=";" type="sentence"/>
+  <splitter value="," type="word"/>
+  <splitter value="，" type="word"/>
+  <splitter value=":" type="word"/>
+</splitters>

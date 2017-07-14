@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+<!-- Copyright (c) 2007 ALICE A.I. Foundation, Inc. -->
+<!-- Last modified Seo 21, 2009, by Lichunlei -->
+
+<category>
+	<pattern>* 几点 *</pattern>
+	<template>It is <date format="h:mm a"/>.</template>
+</category> 
+
+<category>
+	<pattern>你好 *</pattern>
+	<template>你好.</template>
+</category> 
+ 
+<category>
+	<pattern>你 * 好吗 *</pattern>
+	<template>还行.</template>
+</category>
+
+<category>
+	<pattern>帮我推荐个洗发水</pattern>
+	<template>你的发质油性还是干性</template>
+</category>
+<category>
+	<pattern>干</pattern>
+	<that>你的发质油性还是干性</that>
+	<template>你的年龄是多少
+	<think><set name="skin">干</set></think>
+	</template>
+</category>
+<category>
+	<pattern>油</pattern>
+	<that>你的发质油性还是干性</that>
+	<template>你的年龄是多少
+	<think><set name="skin">油</set></think>
+	</template>
+</category>
+<category>
+	<pattern>11</pattern>
+	<that>你的年龄是多少</that>
+	<template>哇塞，
+        <condition name="skin" value="干">你要用小孩保湿款</condition>
+        <condition name="skin" value="油">你要用小孩控油款</condition>
+    </template>
+</category>
+<category>
+	<pattern>22</pattern>
+	<that>你的年龄是多少</that>
+	<template>哇塞，
+        <condition name="skin" value="干">你要用成人保湿款</condition>
+        <condition name="skin" value="油">你要用成人控油款</condition>
+    </template>
+</category>
+<category>
+    <pattern>我的肤质是什么</pattern>
+    <template>哇塞，
+    <condition name="skin" value="干">你的肤质是干</condition>
+    <condition name="skin" value="油">你的肤质是油</condition>
+    </template>
+</category>
+<category>
+	<pattern>WHAT</pattern>
+	<template><date format="E"/>.</template>
+</category>
+
+<category>
+	<pattern>WHAT IS TODAY *</pattern>
+	<template><date format="EEE"/>.</template>
+</category>
+
+<category>
+	<pattern>MY PHONE NUMBER IS *</pattern>
+	<template>Okay, your phone number is 
+		<set name="phone">      <star/>     </set>.
+	</template>
+</category>
+
+<category>
+	<pattern>MY NAME IS *</pattern>
+	<template><think><set name="name"><star/></set></think>hello, <get name="name"/>.</template>
+</category> 
+
+  
+<category>
+	<pattern>DO YOU REMEMBER ME</pattern>
+	<template>Your name is <get name="name"/>, seeker.</template>
+</category>
+
+<category>
+	<pattern>I CAN NOT *</pattern>
+	<template>Why can't you do <set name="it"><person/></set>?</template>
+</category>
+
+<category>
+	<pattern>MY INPUT</pattern>
+	<template> 1:<input index="1"/> 	 2:<input index="2"/> 	 3:<input index="3"/> 	 4:<input index="4"/></template>
+</category>
+
+<category>
+	<pattern>*</pattern>
+	<template>对不起，这句话太深奥了，啥意思呢?</template>
+</category>                                          
+
+
+  <!-- Greeting categories. -->
+  <category>
+    <pattern>WELCOME</pattern>
+    <template>
+      <think>
+        <system> <!-- Defines a method to create new categories from user input at run-time. -->
+          import bitoflife.chatterbean.AliceBot;
+          import bitoflife.chatterbean.Context;
+          import bitoflife.chatterbean.Graphmaster;
+          import bitoflife.chatterbean.aiml.Category;
+          import bitoflife.chatterbean.text.Transformations;
+          
+          void learn(String pattern, String template)
+          {
+            /* The "match" variable represents the current matching context. */
+            AliceBot bot = match.getCallback();
+            Context context = bot.getContext();
+            Transformations transformations = context.getTransformations();
+    
+            pattern = transformations.normalization(pattern);
+            Category category = new Category(pattern, new String[] {template});
+            Graphmaster brain = bot.getGraphmaster();
+            brain.append(category);
+          }
+        </system>
+      </think>
+      Hi ya! Welcome!
+    </template>
+  </category>
+
+  <!-- A category set to learn simple user-fed categories. -->
+  <category>
+    <pattern>* NOT *  GOOD ANSWER</pattern>
+    <template>
+       What would be a good answer?
+    </template>
+  </category>
+  <category>
+    <pattern>_</pattern>
+    <that>WHAT WOULD BE A GOOD ANSWER</that>
+    <template>
+      <system>learn("<input index="3"/>", "<input index="1"/>")</system>
+      Alright! You can ask me again to see if I got it.
+    </template>
+  </category>
+  
+   <!-- A category set to learn simple user-fed categories. -->
+  <category>
+    <pattern>* 不靠谱</pattern>
+    <template>
+       那得怎么说 你教教我
+    </template>
+  </category>
+  <category>
+    <pattern>_</pattern>
+    <that>那得怎么说 你教教我</that>
+    <template>
+      <system>learn("<input index="3"/>", "<input index="1"/>")</system>
+      嗯，我记住啦，你再问下我。看我能不能回答：）
+    </template>
+  </category>
+  
+  
+  
+</aiml>
