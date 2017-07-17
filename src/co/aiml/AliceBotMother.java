@@ -31,7 +31,7 @@ public class AliceBotMother
     AliceBot bot = parser.parse(new FileInputStream("Bots/context.xml"),
                                 new FileInputStream("Bots/splitters.xml"),
                                 new FileInputStream("Bots/substitutions.xml"),
-                                searcher.search("Bots/mydomain", ".*\\.aiml"));
+                                searcher.search("Bots/aimlfile", ".*\\.aiml"));
 
     Context context = bot.getContext(); 
     context.outputStream(gossip);
